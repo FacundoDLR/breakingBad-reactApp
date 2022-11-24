@@ -1,16 +1,52 @@
 
 import './App.css';
+import Quote from './components/Quote';
 import logo from './images/bbad-logo.png'
+import { useState, useEffect } from 'react';
+import Loading from './components/Loading';
+
+
+const initialState = {
+  text: "",
+  author: "",
+  series: ""
+}
 
 function App() {
+
+  const [quote, setQuote] = useState(initialState);
+  const[loading, setLoading] = useState(false)
+
+  const updateQuote = async () => {
+
+    setLoading(true);
+
+    const res = await fetch("https://www.breakingbadapi.com/api/quote/random")
+    const [newQuote] = await res.json()
+
+    const {quote: text, author, series} = newQuote;
+
+    setQuote({
+      text,
+      author,
+      series
+    })
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    updateQuote()
+  }, [])
+  
+
   return (
     <>
       <div style={{
         width: '100%',
         height: '100vh',
         display: 'grid',
-        justifyContent: 'center',
-        // justifyItems: 'center',
+        placeItems: 'center',
         backgroundColor: '#F4D03F',
         backgroundImage: 'linear-gradient(132deg, #F4D03F 0%, #16A085 100%)',
 
@@ -21,35 +57,14 @@ function App() {
           placeItem: 'center',
           placeSelf: 'center'
         }} />
-        <div style={{
-          backgroundColor: '#fff',
-          maxWidth: '400px',
-          // width: '320px',
-          heigth: '300px',
-          padding: '.75rem',
-          borderRadius: '16px',
-          boxShadow: '0px 10px 15px 5px rgb(0 0 0 / 10%)',
-          margin: 'auto',
-
-        }}>
-          <h3 style={{
-            textAlign: 'center',
-            fontStyle: 'italic',
-          }}> <span style={{
-            fontSize: '30px',
-            fontStyle: 'italic',
-
-          }}>"</span> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit, sunt? <span style={{
-            fontSize: '30px',
-            fontStyle: 'italic',
-
-          }}>"</span></h3>
-          <p style={{
-            textAlign: 'end',
-            paddingRight: '2rem'
-          }} >- Author</p>
-        </div>
-        <button style={{
+        {
+          loading && <Loading/>
+        }
+        {
+          !loading && <Quote quote = {quote}/>
+        }
+        {/* <Quote quote = {quote}/> */}
+        <button onClick={updateQuote} style={{
               margin: 'auto',
               width: '200px',
               height: '40px',
