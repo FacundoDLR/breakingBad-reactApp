@@ -11,7 +11,7 @@ const Quote = ({quote}) => {
     <>
         <div className='quoteContainer'>
             <h3 className='quoteText'>
-             <span className='quoteComillas'>«</span> {text} <span className='quoteComillas'>»</span>
+             <span className='quoteComillas'>«</span>{text}<span className='quoteComillas'>»</span>
             </h3>
             <p className='quoteAuthor'>- {author}</p>
             <p className='quoteSerie'>{series}</p>

@@ -78,6 +78,7 @@ body {
 .quoteComillas{
   font-size: 30px;
   font-style: italic;
+  color: #ff8c00;
 }
 .quoteAuthor{
   text-align: end;
@@ -176,3 +177,17 @@ body {
     opacity: 0;
   }
 }
+
+/***************** FOOTER *****************/
+
+.footerLinks{
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+  margin: 1rem 0;
+  font-size: 20px;
+}
+.footerLinks a{
+  color: #000;
+}
+
